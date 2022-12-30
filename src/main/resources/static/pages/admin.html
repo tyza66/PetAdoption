@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠物领养管理员界面</title>
+    <link rel="stylesheet" href="../css/elementui.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+    <div id="root">
+        <div class="login" v-show="notLogined">
+            <div class="logintab">
+                <h2>管理员登录</h2>
+                <h3>账号</h3><el-input class="un" v-model="username" placeholder="请输入账号"></el-input>
+                <h3>密码</h3><el-input class="pw" placeholder="请输入密码" v-model="password" show-password></el-input>
+                <el-button class="log" type="success" @click="login()">登 录</el-button>
+            </div>
+        </div>
+        <el-tabs tab-position="left" style="height: 200px;">
+            <el-tab-pane label="展示宠物管理">用户管理</el-tab-pane>
+            <el-tab-pane label="领养申请管理">配置管理</el-tab-pane>
+            <el-tab-pane label="上传申请管理">配置管理</el-tab-pane>
+            <el-tab-pane label="已拒绝申请">定时任务补偿</el-tab-pane>
+            <el-tab-pane label="已完成申请">定时任务补偿</el-tab-pane>
+        </el-tabs>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script src="../js/elementui.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>

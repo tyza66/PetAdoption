@@ -8,4 +8,12 @@ public class Admin {
     String username;
     String password;
     int perminssion;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
