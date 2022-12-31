@@ -27,7 +27,35 @@
                     </div>
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="我要领养">配置管理2</el-tab-pane>
+            <el-tab-pane label="我要领养">
+                <div class="LYruleForm">
+                    <el-form :model="LYruleForm" :rules="LYrules" ref="LYruleForm" label-width="25%"
+                        class="LYruleForm">
+                        <el-form-item label="申请领养宠物领养编号" prop="aid" style="width: 50%;">
+                            <el-input v-model="LYruleForm.aid"></el-input>
+                        </el-form-item>
+                        <el-form-item label="姓名" prop="name" style="width: 50%;">
+                            <el-input v-model="LYruleForm.name"></el-input>
+                        </el-form-item>
+                        <el-form-item label="电话" prop="phone" style="width: 50%;">
+                            <el-input v-model="LYruleForm.phone"></el-input>
+                        </el-form-item>
+                        <el-form-item label="家庭住址" prop="home" style="width: 50%;">
+                            <el-input v-model="LYruleForm.home"></el-input>
+                        </el-form-item>
+                        <el-form-item label="条件说明" prop="tiaojian" style="width: 50%;">
+                            <el-input v-model="LYruleForm.tiaojian"></el-input>
+                        </el-form-item>
+                        <el-form-item label="其他备注" prop="other" style="width: 50%;">
+                            <el-input type="textarea" v-model="LYruleForm.other"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="submitLYForm('LYruleForm')">申请领养</el-button>
+                            <el-button @click="resetLYForm()">重置</el-button>
+                          </el-form-item>
+                    </el-form>
+                </div>
+            </el-tab-pane>
             <el-tab-pane label="我要发布">配置管理2</el-tab-pane>
             <el-tab-pane label="关于">角色管理3</el-tab-pane>
         </el-tabs>

@@ -16,4 +16,8 @@ public class Admin {
     public String getPassword() {
         return password;
     }
+
+    public int getPerminssion() {
+        return perminssion;
+    }
 }
