@@ -4,7 +4,7 @@
 - 教学springboot全栈项目开发
   
 ###### 开发环境和依赖：
-- mysql,java1.8，maven
+- mysql，java1.8，maven
 - mybatis，springboot，lombok，thymeleaf，nife4j-openapi2(swigger2)
   
 ###### 本地构建：
