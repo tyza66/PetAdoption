@@ -14,7 +14,8 @@ var page = new Vue({
         },
         LYtableData: [],
         YBtableData: [],
-        YStableData: []
+        YStableData: [],
+        SQtableData: []
     },
     beforeCreate: function () {
         that = this;
@@ -62,6 +63,16 @@ var page = new Vue({
         axios.get('/adoption/findPass')
             .then(function (response) {
                 that.YStableData = response.data.data
+                that.$forceUpdate()
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .finally(function () {
+            });
+        axios.get('/pets/findAllWait')
+            .then(function (response) {
+                that.SQtableData = response.data.data
                 that.$forceUpdate()
             })
             .catch(function (error) {
@@ -184,9 +195,225 @@ var page = new Vue({
                     console.log(error);
                 });
         },
-        LYnoPass(id){
-
+        LYnoPass(id) {
+            that = this;
+            this.$confirm('是否驳回该领养请求?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                axios.get('/adoption/NoPass?id=' + id)
+                    .then(function (response) {
+                        if (response.data.code == 0) {
+                            axios.get('/adoption/findNotPass')
+                                .then(function (response) {
+                                    that.LYtableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            axios.get('/adoption/findNoPass')
+                                .then(function (response) {
+                                    that.YBtableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            axios.get('/adoption/findPass')
+                                .then(function (response) {
+                                    that.YStableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            that.$message({
+                                type: 'success',
+                                message: '驳回成功!'
+                            });
+                        } else {
+                            that.$message.error('驳回失败');
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                    .finally(function () {
+                    });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消驳回'
+                });
+            });
         },
-        LYPass()
+        LYPass(id) {
+            that = this;
+            this.$confirm('是否受理该领养请求?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                axios.get('/adoption/pass?id=' + id)
+                    .then(function (response) {
+                        if (response.data.code == 0) {
+                            axios.get('/adoption/findNotPass')
+                                .then(function (response) {
+                                    that.LYtableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            axios.get('/adoption/findNoPass')
+                                .then(function (response) {
+                                    that.YBtableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            axios.get('/adoption/findPass')
+                                .then(function (response) {
+                                    that.YStableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            that.$message({
+                                type: 'success',
+                                message: '受理成功!'
+                            });
+                        } else {
+                            that.$message.error('受理失败');
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                    .finally(function () {
+                    });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消受理'
+                });
+            });
+        },
+        SQnoPass(id) {
+            that = this;
+            this.$confirm('是否驳回该展示请求?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                axios.get('/pets/notPassAnimal?id=' + id)
+                    .then(function (response) {
+                        if (response.data.code == 0) {
+                            axios.get('/pets/findAllWait')
+                                .then(function (response) {
+                                    that.SQtableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            axios.get('/pets/findAll')
+                                .then(function (response) {
+                                    that.ZStableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            that.$message({
+                                type: 'success',
+                                message: '驳回成功!'
+                            });
+                        } else {
+                            that.$message.error('驳回失败');
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                    .finally(function () {
+                    });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消驳回'
+                });
+            });
+        },
+        SQPass(id) {
+            that = this;
+            this.$confirm('是否受理该展示请求?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                axios.get('/pets/passAnimal?id=' + id)
+                    .then(function (response) {
+                        if (response.data.code == 0) {
+                            axios.get('/pets/findAllWait')
+                                .then(function (response) {
+                                    that.SQtableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            axios.get('/pets/findAll')
+                                .then(function (response) {
+                                    that.ZStableData = response.data.data
+                                    that.$forceUpdate()
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                });
+                            that.$message({
+                                type: 'success',
+                                message: '受理成功!'
+                            });
+                        } else {
+                            that.$message.error('受理失败');
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                    .finally(function () {
+                    });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消受理'
+                });
+            });
+        }
     }
 })

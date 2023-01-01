@@ -23,13 +23,15 @@
         <el-tabs class="main" tab-position="left" style="height: 200px;">
             <el-tab-pane label="展示宠物管理">
                 <el-table class="atable" :data="ZStableData" border style="width: 100%">
-                    <el-table-column fixed prop="id" label="编号" width="150">
+                    <el-table-column fixed prop="id" label="编号" width="50">
                     </el-table-column>
                     <el-table-column prop="name" label="名称" width="120">
                     </el-table-column>
                     <el-table-column prop="jieshao" label="介绍" width="120">
                     </el-table-column>
                     <el-table-column prop="touxiang" label="头像" width="420">
+                    </el-table-column>
+                    <el-table-column prop="statu" label="状态" width="50">
                     </el-table-column>
                     <el-table-column label="操作" width="100">
                         <template slot-scope="scope">
@@ -81,7 +83,26 @@
                     </el-table-column>
                 </el-table>
             </el-tab-pane>
-            <el-tab-pane label="上传申请管理">配置管理</el-tab-pane>
+            <el-tab-pane label="上传申请管理">
+                <el-table class="atable" :data="SQtableData" border style="width: 100%">
+                    <el-table-column fixed prop="id" label="编号" width="50">
+                    </el-table-column>
+                    <el-table-column prop="name" label="名称" width="80">
+                    </el-table-column>
+                    <el-table-column prop="jieshao" label="介绍" width="120">
+                    </el-table-column>
+                    <el-table-column prop="touxiang" label="头像" width="520">
+                    </el-table-column>
+                    <el-table-column prop="statu" label="状态" width="50">
+                    </el-table-column>
+                    <el-table-column label="操作" width="100">
+                        <template slot-scope="scope">
+                            <el-button @click="SQnoPass(scope.row.id)" type="text" size="small">驳回</el-button>
+                            <el-button @click="SQPass(scope.row.id)" type="text" size="small">受理</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-tab-pane>
             <el-tab-pane label="已驳回领养申请">
                 <el-table class="atable" :data="YBtableData" border style="width: 100%">
                     <el-table-column fixed prop="id" label="编号" width="50">

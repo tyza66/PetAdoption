@@ -29,8 +29,7 @@
             </el-tab-pane>
             <el-tab-pane label="我要领养">
                 <div class="LYruleForm">
-                    <el-form :model="LYruleForm" :rules="LYrules" ref="LYruleForm" label-width="25%"
-                        class="LYruleForm">
+                    <el-form :model="LYruleForm" :rules="LYrules" ref="LYruleForm" label-width="25%" class="ruleForm">
                         <el-form-item label="申请领养宠物领养编号" prop="aid" style="width: 50%;">
                             <el-input v-model="LYruleForm.aid"></el-input>
                         </el-form-item>
@@ -52,12 +51,34 @@
                         <el-form-item>
                             <el-button type="primary" @click="submitLYForm('LYruleForm')">申请领养</el-button>
                             <el-button @click="resetLYForm()">重置</el-button>
-                          </el-form-item>
+                        </el-form-item>
                     </el-form>
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="我要发布">配置管理2</el-tab-pane>
-            <el-tab-pane label="关于">角色管理3</el-tab-pane>
+            <el-tab-pane label="我要发布">
+                <el-form :model="FBruleForm" :rules="FBrules" ref="FBruleForm" label-width="25%" class="ruleForm">
+                    <el-form-item label="要发布的宠物名称" prop="name" style="width: 50%;">
+                        <el-input v-model="FBruleForm.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="要发布的宠物介绍" prop="jieshao" style="width: 50%;">
+                        <el-input v-model="FBruleForm.jieshao"></el-input>
+                    </el-form-item>
+                    <el-form-item label="要发布的宠物图片" prop="touxiang" style="width: 50%;">
+                        <el-upload class="avatar-uploader" action="./upload1/" enctype="multipart/form-data" :show-file-list="false"
+                            :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                            <img v-if="FBruleForm.touxiang" :src="FBruleForm.touxiang" class="avatar">
+                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        </el-upload>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitFBForm('FBruleForm')">提交</el-button>
+                        <el-button @click="resetFBForm()">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-tab-pane>
+            <el-tab-pane label="关于">
+                <h3>管理员界面：</h3><a href="http://localhost:8080/pages/admin.html" target="_blank">http://localhost:8080/pages/admin.html</a>
+            </el-tab-pane>
         </el-tabs>
     </div>
     <script src="../js/vue.js"></script>

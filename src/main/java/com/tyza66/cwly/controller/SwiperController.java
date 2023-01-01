@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-@Api(tags = "获取轮播图模块")
+@Api(tags = "轮播图模块")
 @RestController
 @RequestMapping("/swiper")
 public class SwiperController {

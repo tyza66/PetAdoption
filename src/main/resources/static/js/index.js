@@ -24,7 +24,20 @@ var page = new Vue({
             { min: 2, max: 255, message: '长度在 2 到 255 个字符', trigger: 'blur' }],
             other: [{ required: true, message: '请输入备注和其他说明', trigger: 'blur' },
             { min: 2, max: 255, message: '长度在 2 到 255 个字符', trigger: 'blur' }]
-        }
+        },
+        FBruleForm: {
+            name: "",
+            jieshao: "",
+            touxiang: ""
+        },
+        FBrules: {
+            name: [{ required: true, message: '请输入要发布的宠物名称', trigger: 'blur' },
+            { min: 2, max: 255, message: '长度在 2 到 255 个字符', trigger: 'blur' }],
+            jieshao: [{ required: true, message: '请输入要发布的宠物介绍', trigger: 'blur' },
+            { min: 2, max: 255, message: '长度在 2 到 255 个字符', trigger: 'blur' }],
+            touxiang: [{ required: true, message: '请上传宠物照片', trigger: 'blur' }]
+        },
+        imageUrl:''
     },
     beforeCreate: function () {
         //芭蕾独角兽，彩虹小马
@@ -38,7 +51,7 @@ var page = new Vue({
             })
             .finally(function () {
             });
-        axios.get('/pets/findAll')
+        axios.get('/pets/findAllShow')
             .then(function (response) {
                 that.pets = response.data.data
             })
@@ -104,6 +117,72 @@ var page = new Vue({
             this.LYruleForm.home = ""
             this.LYruleForm.tiaojian = ""
             this.LYruleForm.other = ""
+        },
+        handleAvatarSuccess(res, file) {
+            this.FBruleForm.touxiang = URL.createObjectURL(file.raw);
+            this.imageUrl = res
+        },
+        beforeAvatarUpload(file) {
+            const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+                this.$message.error('上传头像图片只能是 JPG 格式!');
+            }
+            if (!isLt2M) {
+                this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            return isJPG && isLt2M;
+        },
+        submitFBForm(formName) {
+            that = this;
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    that.$confirm('确定表单信息无误方可提交，若为无意义信息则申请不会被受理！', '注意', {
+                        confirmButtonText: '提交',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        axios.post('/pets/insert', {
+                            "jieshao": that.FBruleForm.jieshao,
+                            "name": that.FBruleForm.name,
+                            "touxiang": that.imageUrl
+                        })
+                            .then(function (response) {
+                                if (response.data.code == "0") {
+                                    that.$message({
+                                        message: '提交成功',
+                                        type: 'success'
+                                    })
+                                    that.FBruleForm.name = ""
+                                    that.FBruleForm.jieshao = ""
+                                    that.FBruleForm.touxiang = ""
+                                    that.imageUrl = ""
+                                    that.$forceUpdate()
+                                }
+                                else {
+                                    that.$message.error('提交失败');
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消提交'
+                        });
+                    });
+                } else {
+                    return false;
+                }
+            });
+        },
+        resetFBForm() {
+            this.FBruleForm.name = ""
+            this.FBruleForm.jieshao = ""
+            this.FBruleForm.touxiang = ""
+            that.$forceUpdate()
         }
     }
 })

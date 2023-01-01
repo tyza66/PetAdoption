@@ -8,4 +8,5 @@ public class Pets {
     String name;
     String jieshao;
     String touxiang;
+    int statu;
 }
