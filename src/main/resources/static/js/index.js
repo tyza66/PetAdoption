@@ -13,7 +13,7 @@ var page = new Vue({
         },
         LYrules: {
             aid: [{ required: true, message: '请输入要领养宠物的领养编号', trigger: 'blur' },
-            { min: 2, max: 255, message: '长度在 2 到 255 个字符', trigger: 'blur' }],
+            { min: 1, max: 255, message: '长度在 1 到 255 个字符', trigger: 'blur' }],
             name: [{ required: true, message: '请输入姓名', trigger: 'blur' },
             { min: 2, max: 255, message: '长度在 2 到 255 个字符', trigger: 'blur' }],
             phone: [{ required: true, message: '请输入电话号', trigger: 'blur' },
