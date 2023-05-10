@@ -5,7 +5,7 @@
   
 ###### 开发环境和依赖：
 - mysql，java1.8，maven
-- mybatis，springboot，lombok，thymeleaf，nife4j-openapi2(swigger2)
+- mybatis，springboot，lombok，thymeleaf，nife4j-openapi2(swagger2)
   
 ###### 本地构建：
 - 执行mysql文件夹中的sql文件初始化数据库
